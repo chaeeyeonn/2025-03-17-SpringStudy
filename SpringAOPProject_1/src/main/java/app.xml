@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	<bean id="dao" class="com.sist.dao.BoardDAO"/>
+	<bean id="aop" class="com.sist.aop.BoardAspect"/>
+	<!-- 
+		aspect : 공통 메소드 모아 저장
+		pointcut : 어떤 메소드에 적용할 것인지
+		joinpoint : 메소드 영역 어디에서 호출할 것인지
+		    - before
+		    - after
+		    - after-throwing
+		    - after-returning
+		advice : 
+		waving
+	 -->
+	<aop:config>
+	  <aop:aspect ref="aop"><!-- 왼쪽 열 옆에 화살표 표시가 있어야 적용 -->
+	    <aop:before method="before"
+	      pointcut="execution(* com.sist.dao.BoardDAO.board*(..))"
+	    />	  
+	    <aop:after method="after"
+	      pointcut="execution(* com.sist.dao.BoardDAO.board*(..))"
+	    />
+	  </aop:aspect>
+	</aop:config>
+</beans>

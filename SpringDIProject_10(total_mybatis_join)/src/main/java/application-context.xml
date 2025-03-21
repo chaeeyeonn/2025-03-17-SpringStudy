@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- 사용자 정의 클래스 메모리 할당(스프링 관리 요청)
+		제외: VO, 인터페이스
+	 -->
+	 <context:component-scan base-package="com.sist.*"/>
+	 <!-- 
+	 	스프링 역할
+	 	1) 객체의 생명주기(클래스 관리자)
+	 	   ===========
+	 	   		객체 생성 / 객체 소멸 ==== 컨테이너
+	 	   		*** 객체 찾기: DL(getBean())
+	 	2) 객체 생성시에 변수에 대한 초기화: DI
+	 				 =============
+	 				 - setter DI
+	 				 	p:name="홍길동" => setName("홍길동")
+	 				 - constructor DI
+	 				  	c:name="홍길동" => A(String name)
+	 				  					   ===========홍길동
+	 				 - 객체 생성시: init-method="메소드명" 
+	 				   객체 소멸시: destroy-method="메소드명"
+	 				   
+	    선택적인 클래스 메모리 할당
+	 	@Component: 일반 클래스(Manager,MainClass...)
+	 	@Repository: DAO(table 한 개에 대한 제어)
+	 	@Service: DAO 여러 개 한 번에 처리
+	 			  (게시판+댓글)
+	   ============================================웹
+	 	@Controller : Model => 화면 이동(sendRedirct,forward)
+ 		@RestController : Model => void => 화면 이동 불가
+ 								  => 자바스크립트 연결
+ 								  => JSON
+ 						React/Vue => 자제 화면 이동(Router)
+ 		@ControllerAdvice : Model에서 발생하는 예외처리
+ 	   ============================================
+ 		@Configuration: 클래스 설정 XML을 대체(자바로 코딩)
+ 		
+ 		DI 관련 => 값 주입
+ 		@Autowired : 자동 주입 => 스프링 자체 객체 찾아 주입
+ 					 ** 일반 멤버변수는 불가능 / 객체 주소를 전송 / 어노테이션 바로 아래 객체(1개)만 적용
+	    @PostConstruct : init-method
+	    @PreDestroy: destory-method
+	    @Resource: 사용자가 선택
+	    		  @Resource(name="클래스 아이디")
+	    		  
+	    *** @Autowored 사용시에는 반드시 클래스 메모리 할당이 되어 있어야 한다
+	  -->
+
+</beans>
